@@ -186,7 +186,7 @@ function InstructorWorkout() {
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button 
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate('/painel')}
               className="p-1.5 bg-white/10 hover:bg-white/20 rounded-lg transition-colors mr-1"
               title="Voltar ao Painel"
             >
@@ -560,7 +560,7 @@ function InstructorWorkout() {
             <button 
               onClick={() => {
                 setShowFinishModal(false);
-                navigate('/dashboard');
+                navigate('/painel');
               }}
               className="w-full py-4 bg-[#071D49] hover:bg-black text-white font-black uppercase tracking-wider rounded-xl shadow-lg active:scale-95 transition-all"
             >
@@ -631,7 +631,7 @@ function InstructorDashboardWrapper() {
       safeStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
     }
 
-    navigate(`/workout/${student.id}`);
+    navigate(`/treino/${student.id}`);
   };
 
   return (
@@ -687,7 +687,7 @@ function StudentPortalWrapper() {
 
 function LandingPageWrapper() {
   const navigate = useNavigate();
-  return <LandingPage onAccessDashboard={() => navigate('/dashboard')} />;
+  return <LandingPage onAccessDashboard={() => navigate('/painel')} />;
 }
 
 export default function App() {
@@ -695,8 +695,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPageWrapper />} />
-        <Route path="/dashboard" element={<InstructorDashboardWrapper />} />
-        <Route path="/workout/:id" element={<InstructorWorkout />} />
+        <Route path="/painel" element={<InstructorDashboardWrapper />} />
+        <Route path="/treino/:id" element={<InstructorWorkout />} />
         <Route path="/aluno/:id" element={<StudentPortalWrapper />} />
         <Route path="/anamnese" element={<AnamneseForm />} />
         <Route path="*" element={<Navigate to="/" replace />} />
