@@ -1,0 +1,112 @@
+{
+  "entities": {
+    "Student": {
+      "title": "Student",
+      "description": "A student profile managed by the personal trainer",
+      "type": "object",
+      "properties": {
+        "instructorId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "medicalConditions": { "type": "string", "maxLength": 500 },
+        "injuries": { "type": "string", "maxLength": 500 },
+        "medications": { "type": "string", "maxLength": 500 },
+        "objectives": { "type": "string", "maxLength": 500 },
+        "contractSignedAt": { "type": "string", "maxLength": 30 },
+        "imageConsent": { "type": "boolean" },
+        "planPrice": { "type": "number" },
+        "paymentDay": { "type": "number" },
+        "classesPerWeek": { "type": "number" },
+        "status": { "type": "string", "enum": ["active", "suspended", "frozen"] },
+        "createdAt": { "type": "string", "maxLength": 30 },
+        "updatedAt": { "type": "string", "maxLength": 30 }
+      },
+      "required": ["instructorId", "name", "createdAt", "updatedAt"]
+    },
+    "BiomechanicalAssessment": {
+      "title": "Biomechanical Assessment",
+      "description": "Assessment results for a student",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string", "maxLength": 128 },
+        "instructorId": { "type": "string", "maxLength": 128 },
+        "date": { "type": "string", "maxLength": 30 },
+        "dorsiflexion": { "type": "string", "maxLength": 300 },
+        "thomasTest": { "type": "string", "maxLength": 300 },
+        "hinge": { "type": "string", "maxLength": 300 },
+        "squat": { "type": "string", "maxLength": 300 },
+        "notes": { "type": "string", "maxLength": 1000 },
+        "createdAt": { "type": "string", "maxLength": 30 },
+        "updatedAt": { "type": "string", "maxLength": 30 }
+      },
+      "required": ["studentId", "instructorId", "createdAt", "updatedAt"]
+    },
+    "Workout": {
+      "title": "Workout",
+      "description": "Current workout plan for a student",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string", "maxLength": 128 },
+        "instructorId": { "type": "string", "maxLength": 128 },
+        "phases": { "type": "string", "maxLength": 10000 },
+        "createdAt": { "type": "string", "maxLength": 30 },
+        "updatedAt": { "type": "string", "maxLength": 30 }
+      },
+      "required": ["studentId", "instructorId", "phases", "createdAt", "updatedAt"]
+    },
+    "SessionLog": {
+      "title": "Session Log",
+      "description": "A scheduled or completed workout session",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string", "maxLength": 128 },
+        "instructorId": { "type": "string", "maxLength": 128 },
+        "date": { "type": "string", "maxLength": 30 },
+        "status": { "type": "string", "enum": ["scheduled", "completed", "cancelled", "rescheduled"] },
+        "rpe": { "type": "number" },
+        "feedback": { "type": "string", "maxLength": 1000 },
+        "createdAt": { "type": "string", "maxLength": 30 },
+        "updatedAt": { "type": "string", "maxLength": 30 }
+      },
+      "required": ["studentId", "instructorId", "date", "status", "createdAt", "updatedAt"]
+    },
+    "TimeOff": {
+      "title": "Time Off",
+      "description": "Frozen periods for a student",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string", "maxLength": 128 },
+        "instructorId": { "type": "string", "maxLength": 128 },
+        "startDate": { "type": "string", "maxLength": 30 },
+        "endDate": { "type": "string", "maxLength": 30 },
+        "reason": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "maxLength": 30 },
+        "updatedAt": { "type": "string", "maxLength": 30 }
+      },
+      "required": ["studentId", "instructorId", "startDate", "endDate", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/students/{studentId}": {
+      "schema": { "$ref": "#/entities/Student" },
+      "description": "Stores student profiles"
+    },
+    "/biomechanical_assessments/{assessmentId}": {
+      "schema": { "$ref": "#/entities/BiomechanicalAssessment" },
+      "description": "Stores biomechanical assessments"
+    },
+    "/workouts/{workoutId}": {
+      "schema": { "$ref": "#/entities/Workout" },
+      "description": "Stores student workout plans"
+    },
+    "/session_logs/{sessionId}": {
+      "schema": { "$ref": "#/entities/SessionLog" },
+      "description": "Stores session logs and schedule"
+    },
+    "/time_off/{timeOffId}": {
+      "schema": { "$ref": "#/entities/TimeOff" },
+      "description": "Stores frozen periods"
+    }
+  }
+}

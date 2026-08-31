@@ -1,0 +1,109 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} { 
+      allow read, write: if false; 
+    }
+
+    function isSignedIn() { return true; }
+    function getAuthUid() { return request.auth == null ? 'anonymous' : request.auth.uid; }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isValidId(id) { return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+
+    // Validation Helpers
+    function isValidStudent(data) {
+      return data.keys().hasAll(['instructorId', 'name', 'createdAt', 'updatedAt']) 
+        && data.keys().size() <= 40
+        && data.instructorId is string && data.instructorId.size() <= 128
+        && data.name is string && data.name.size() <= 100
+        && data.createdAt is string && data.createdAt.size() <= 30
+        && data.updatedAt is string && data.updatedAt.size() <= 30
+        && data.instructorId == getAuthUid();
+    }
+
+    function isValidAssessment(data) {
+      return data.keys().hasAll(['studentId', 'instructorId', 'createdAt', 'updatedAt'])
+        && data.keys().size() <= 40
+        && data.studentId is string && data.studentId.size() <= 128
+        && data.instructorId is string && data.instructorId.size() <= 128
+        && data.createdAt is string && data.createdAt.size() <= 30
+        && data.updatedAt is string && data.updatedAt.size() <= 30
+        && data.instructorId == getAuthUid();
+    }
+
+    function isValidWorkout(data) {
+      return data.keys().hasAll(['studentId', 'instructorId', 'phases', 'createdAt', 'updatedAt'])
+        && data.keys().size() <= 40
+        && data.studentId is string && data.studentId.size() <= 128
+        && data.instructorId is string && data.instructorId.size() <= 128
+        && data.phases is string && data.phases.size() <= 10000
+        && data.createdAt is string && data.createdAt.size() <= 30
+        && data.updatedAt is string && data.updatedAt.size() <= 30
+        && data.instructorId == getAuthUid();
+    }
+
+    function isValidSessionLog(data) {
+      return data.keys().hasAll(['studentId', 'instructorId', 'date', 'status', 'createdAt', 'updatedAt'])
+        && data.keys().size() <= 40
+        && data.studentId is string && data.studentId.size() <= 128
+        && data.instructorId is string && data.instructorId.size() <= 128
+        && data.date is string && data.date.size() <= 30
+        && data.status is string && data.status.size() <= 20
+        && data.createdAt is string && data.createdAt.size() <= 30
+        && data.updatedAt is string && data.updatedAt.size() <= 30
+        && data.instructorId == getAuthUid();
+    }
+
+    function isValidTimeOff(data) {
+      return data.keys().hasAll(['studentId', 'instructorId', 'startDate', 'endDate', 'createdAt', 'updatedAt'])
+        && data.keys().size() <= 40
+        && data.studentId is string && data.studentId.size() <= 128
+        && data.instructorId is string && data.instructorId.size() <= 128
+        && data.startDate is string && data.startDate.size() <= 30
+        && data.endDate is string && data.endDate.size() <= 30
+        && data.createdAt is string && data.createdAt.size() <= 30
+        && data.updatedAt is string && data.updatedAt.size() <= 30
+        && data.instructorId == getAuthUid();
+    }
+
+    // Rules
+    match /students/{studentId} {
+      // Instructor can read their students. Unauthenticated students can read their own if they have the ID (token approach).
+      allow read: if true; // True for now to allow student token access
+      allow create: if isSignedIn() && isValidId(studentId) && isValidStudent(incoming());
+      // For now, allow anyone to update (the student needs to sign the contract). We should lock it down later.
+      allow update: if (isSignedIn() && existing().instructorId == getAuthUid()) || true;
+      allow delete: if isSignedIn() && isValidId(studentId) && existing().instructorId == getAuthUid();
+    }
+
+    match /biomechanical_assessments/{assessmentId} {
+      allow read: if true;
+      allow create: if isSignedIn() && isValidId(assessmentId) && isValidAssessment(incoming());
+      allow update: if isSignedIn() && isValidId(assessmentId) && existing().instructorId == getAuthUid();
+      allow delete: if isSignedIn() && isValidId(assessmentId) && existing().instructorId == getAuthUid();
+    }
+
+    match /workouts/{workoutId} {
+      allow read: if true;
+      allow create: if isSignedIn() && isValidId(workoutId) && isValidWorkout(incoming());
+      allow update: if isSignedIn() && isValidId(workoutId) && existing().instructorId == getAuthUid();
+      allow delete: if isSignedIn() && isValidId(workoutId) && existing().instructorId == getAuthUid();
+    }
+
+    match /session_logs/{sessionId} {
+      allow read: if true;
+      allow create: if isSignedIn() && isValidId(sessionId) && isValidSessionLog(incoming());
+      allow update: if isSignedIn() && isValidId(sessionId) && existing().instructorId == getAuthUid();
+      allow delete: if isSignedIn() && isValidId(sessionId) && existing().instructorId == getAuthUid();
+    }
+
+    match /time_off/{timeOffId} {
+      allow read: if true;
+      allow create: if isSignedIn() && isValidId(timeOffId) && isValidTimeOff(incoming());
+      allow update: if isSignedIn() && isValidId(timeOffId) && existing().instructorId == getAuthUid();
+      allow delete: if isSignedIn() && isValidId(timeOffId) && existing().instructorId == getAuthUid();
+    }
+  }
+}

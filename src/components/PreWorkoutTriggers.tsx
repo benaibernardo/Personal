@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const PreWorkoutTriggers: React.FC<Props> = ({ data, updateData }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Card className={`border-t-4 border-t-[#fd7e14] ${!data.triggers ? 'print:hidden' : ''}`}>

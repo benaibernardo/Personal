@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "description": "",
+  "name": "Benai Bernardo Consultoria",
+  "description": "Sistema de prontuário biomecânico e portal do aluno com sincronização em nuvem Firestore",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
