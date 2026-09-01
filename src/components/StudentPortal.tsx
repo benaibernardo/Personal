@@ -26,8 +26,6 @@ export const StudentPortal: React.FC<Props> = ({ student, onClose, isStandalone 
   const [cpf, setCpf] = useState('');
   const [address, setAddress] = useState('');
   const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
-  const [paymentDay, setPaymentDay] = useState('10');
-  const [paymentMethod, setPaymentMethod] = useState('PIX');
   const [agreedTerms, setAgreedTerms] = useState(false);
   const [agreedImage, setAgreedImage] = useState(false);
 
@@ -80,7 +78,7 @@ export const StudentPortal: React.FC<Props> = ({ student, onClose, isStandalone 
               <FileText className="w-6 h-6 text-[#00AEEF]" />
             </div>
             
-            <h2 className="text-2xl font-bold text-[#071D49] mb-2">Contrato de Acompanhamento Personalizado</h2>
+            <h2 className="text-2xl font-bold text-[#071D49] mb-2">Contrato Particular de Prestação de Serviços de Personal Trainer e Acompanhamento Técnico</h2>
             <p className="text-xs text-gray-500 mb-8">Revise os termos contratuais, preencha seus dados e confirme o aceite eletrônico para liberar seu portal.</p>
             
             {/* Campos de Cadastro do Aluno */}
@@ -90,27 +88,31 @@ export const StudentPortal: React.FC<Props> = ({ student, onClose, isStandalone 
               <div className="bg-gray-50 p-6 rounded-2xl text-xs md:text-sm text-gray-700 border border-gray-200 space-y-4 leading-relaxed order-2 lg:order-1 max-h-[500px] overflow-y-auto">
                 <p className="font-bold text-[#071D49] border-b border-gray-200 pb-2">CONTRATANTE: {fullName || '[Nome do Aluno]'}</p>
                 <p className="border-b border-gray-200 pb-2">
-                  <strong>CONTRATADO:</strong> Benai Bernardo Consultoria de Treinamento.<br/>
-                  <span className="text-gray-500 text-xs">CREF: 000000-G/PR | CNPJ/CPF: Profissional Autônomo</span>
+                  <strong>CONTRATADO:</strong> Benai Bernardo - Consultoria e Treinamento.<br/>
+                  <span className="text-gray-500 text-xs">CPF: 041.044.009-47 | PIX: 41997222664 | Curitiba/PR<br/>E-mail: contato@benaibernardo.com.br</span>
                 </p>
                 
                 <h4 className="font-bold text-gray-900 mt-3">CLÁUSULA 1ª – DO OBJETO E ESCOPO</h4>
-                <p>Prestação de serviços de prescrição de treinamento físico individualizado, acompanhamento biomecânico presencial e monitoramento de desempenho.</p>
+                <p>Prestação de serviços de prescrição de treinamento físico individualizado e acompanhamento biomecânico presencial.</p>
                 
                 <h4 className="font-bold text-gray-900 mt-3">CLÁUSULA 2ª – DA AGENDA, HORÁRIOS E VIGÊNCIA</h4>
                 <p><strong>Parágrafo 1º (Início):</strong> O presente contrato entra em vigor na data de início selecionada: <strong>{startDate}</strong>.</p>
                 <p><strong>Parágrafo 2º (Frequência e Horários):</strong> As sessões ocorrem conforme dias e horários agendados na grade de atendimento semanal acordada.</p>
-                <p><strong>Parágrafo 3º (Reposições):</strong> Cancelamentos com menos de 24h de antecedência não dão direito à reposição, salvo mediante acordo prévio.</p>
+                <p><strong>Parágrafo 3º (Reposições e Acúmulo):</strong> Cancelamentos com menos de 24h de antecedência ou faltas não dão direito à reposição ou acúmulo de aulas para o mês seguinte.</p>
 
                 <h4 className="font-bold text-gray-900 mt-3">CLÁUSULA 3ª – DO VALOR, PAGAMENTO E VENCIMENTO</h4>
-                <p><strong>Parágrafo 1º:</strong> O valor acordado é de R$ 600,00 mensais, com vencimento todo <strong>dia {paymentDay}</strong> de cada mês.</p>
-                <p><strong>Parágrafo 2º (Forma de Pagamento):</strong> Selecionada pelo contratante na modalidade: <strong>{paymentMethod}</strong>.</p>
-                <p><strong>Parágrafo 3º (Inadimplência):</strong> Tolerância máxima de 5 dias corridos. No 6º dia de atraso, os agendamentos ficam suspensos até a regularização.</p>
+                <p><strong>Parágrafo 1º:</strong> O valor acordado mensal será pago exclusivamente via <strong>PIX</strong>.</p>
+                <p><strong>Parágrafo 2º (Vencimento):</strong> O pagamento deve ser realizado rigorosamente até o <strong>dia 5</strong> de cada mês.</p>
+                <p><strong>Parágrafo 3º (Reajuste Anual):</strong> O valor poderá ser reajustado anualmente com base nos índices de inflação ou mediante comum acordo.</p>
+                <p><strong>Parágrafo 4º (Inadimplência):</strong> Tolerância máxima de 5 dias corridos. No 6º dia de atraso, os agendamentos ficam suspensos até a regularização.</p>
 
                 <h4 className="font-bold text-gray-900 mt-3">CLÁUSULA 4ª – DO CONGELAMENTO E FÉRIAS</h4>
-                <p>Direito a congelamento de até 30 dias por ano para períodos de férias ou afastamento superior a 15 dias consecutivos, prorrogando a vigência automaticamente.</p>
+                <p>O CONTRATANTE e o CONTRATADO têm direito a congelamento de até 30 dias por ano (podendo ser fracionados em até 2 períodos de 15 dias), com prorrogação da vigência ou suspensão da cobrança, desde que a parte que for usufruir comunique à outra com antecedência prévia mínima de 15 a 30 dias.</p>
 
-                <h4 className="font-bold text-gray-900 mt-3">CLÁUSULA 5ª – DA SAÚDE E RESPONSABILIDADE</h4>
+                <h4 className="font-bold text-gray-900 mt-3">CLÁUSULA 5ª – DA RESCISÃO E AVISO PRÉVIO</h4>
+                <p>Em caso de cancelamento do acompanhamento, a parte interessada deverá comunicar com aviso prévio de 30 dias para evitar cobranças indevidas e organizar o encerramento do ciclo.</p>
+
+                <h4 className="font-bold text-gray-900 mt-3">CLÁUSULA 6ª – DA SAÚDE E RESPONSABILIDADE</h4>
                 <p>O aluno declara estar apto para a prática de exercícios físicos de acordo com a anamnese preenchida.</p>
               </div>
 
@@ -167,34 +169,14 @@ export const StudentPortal: React.FC<Props> = ({ student, onClose, isStandalone 
                       />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Dia de Vencimento</label>
-                        <select 
-                          value={paymentDay}
-                          onChange={(e) => setPaymentDay(e.target.value)}
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00AEEF] bg-white font-medium"
-                        >
-                          <option value="5">Todo dia 5</option>
-                          <option value="10">Todo dia 10</option>
-                          <option value="15">Todo dia 15</option>
-                          <option value="20">Todo dia 20</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Forma de Pagamento</label>
-                        <select 
-                          value={paymentMethod}
-                          onChange={(e) => setPaymentMethod(e.target.value)}
-                          className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#00AEEF] bg-white font-medium"
-                        >
-                          <option value="PIX">PIX (Automático)</option>
-                          <option value="Cartão de Crédito">Cartão de Crédito</option>
-                          <option value="Boleto Bancário">Boleto Bancário</option>
-                          <option value="Transferência TED/DOC">Transferência TED</option>
-                          <option value="Dinheiro">Dinheiro</option>
-                        </select>
-                      </div>
+                    {/* Fixed payment details display */}
+                    <div className="bg-blue-50 p-3.5 rounded-xl border border-blue-100 text-xs text-gray-700 flex flex-col gap-1.5 shadow-sm">
+                      <p className="flex items-center justify-between">
+                        <strong>Vencimento:</strong> <span>Todo dia 5</span>
+                      </p>
+                      <p className="flex items-center justify-between">
+                        <strong>Pagamento:</strong> <span className="bg-[#00AEEF] text-white px-2 py-0.5 rounded font-bold">Exclusivo PIX</span>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -461,43 +443,90 @@ export const StudentPortal: React.FC<Props> = ({ student, onClose, isStandalone 
               <div className="flex justify-between items-center">
                 <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Mensalidade Vigente</span>
                 <span className="px-3 py-1.5 bg-amber-50 text-amber-700 rounded-lg text-[10px] font-black uppercase tracking-wider border border-amber-200 flex items-center gap-1.5">
-                  <Clock className="w-3 h-3" /> Vence em 10 dias
+                  <Clock className="w-3 h-3" /> Vence dia 5
                 </span>
               </div>
               
               <div className="flex items-end justify-between border-b border-gray-100 pb-5">
                 <div>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Valor da Parcela</p>
+                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Valor da Mensalidade</p>
                   <span className="text-4xl font-black text-[#071D49] tracking-tight">R$ 600,00</span>
                 </div>
                 <div className="text-right">
                   <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Método</p>
-                  <span className="text-sm font-black text-[#071D49] bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-200">{paymentMethod}</span>
+                  <span className="text-sm font-black text-[#071D49] bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-200">PIX</span>
                 </div>
               </div>
 
-              {paymentMethod === 'PIX' ? (
-                <div className="bg-[#071D49] p-5 rounded-xl border border-[#0A2663] space-y-3 relative overflow-hidden shadow-lg">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#00AEEF] opacity-10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-                  <div className="flex justify-between items-center relative z-10">
-                    <span className="text-xs font-bold text-blue-200 block uppercase tracking-wider">Chave PIX (E-mail)</span>
-                    <span className="text-[10px] text-white/50">C6 Bank</span>
-                  </div>
-                  <div className="flex items-center justify-between bg-white/10 p-3 rounded-lg border border-white/20 text-sm font-mono text-white relative z-10 backdrop-blur-sm">
-                    <span>contato@benaibernardo.com.br</span>
-                    <button 
-                      onClick={() => alert('Chave PIX copiada para a área de transferência!')}
-                      className="bg-[#00AEEF] text-[#071D49] px-3 py-1.5 rounded-md font-bold text-xs hover:bg-[#0090C5] transition-colors"
-                    >
-                      Copiar
-                    </button>
+              <div className="bg-[#071D49] p-5 rounded-xl border border-[#0A2663] space-y-4 relative overflow-hidden shadow-lg">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#00AEEF] opacity-10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                
+                <div className="flex justify-between items-center relative z-10">
+                  <span className="text-xs font-bold text-blue-200 block uppercase tracking-wider">Chave PIX (Celular)</span>
+                </div>
+                
+                <div className="flex items-center justify-between bg-white/10 p-3 rounded-lg border border-white/20 text-base font-mono text-white relative z-10 backdrop-blur-sm">
+                  <span>41997222664</span>
+                  <button 
+                    onClick={() => {
+                      navigator.clipboard.writeText('41997222664');
+                      alert('Chave PIX copiada para a área de transferência!');
+                    }}
+                    className="bg-[#00AEEF] text-[#071D49] px-4 py-2 rounded-md font-bold text-xs hover:bg-[#0090C5] transition-colors shadow-sm flex items-center gap-2"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    Copiar
+                  </button>
+                </div>
+
+                <div className="relative z-10 border-t border-white/10 pt-4 mt-2 flex flex-col items-center">
+                  <p className="text-xs text-blue-200 mb-3 font-medium text-center">Escaneie o QR Code abaixo para pagar:</p>
+                  <div className="bg-white p-3 rounded-xl shadow-inner inline-block">
+                    {/* Exibe o QR Code dinâmico apontando para o link fornecido ou usa uma representação SVG genérica */}
+                    <img 
+                      src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://nubank.com.br/cobrar/17t1f/6a95c649-75da-42a8-8625-c44523189e26" 
+                      alt="QR Code PIX Nubank"
+                      className="w-32 h-32 object-contain"
+                    />
                   </div>
                 </div>
-              ) : (
-                <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100 text-xs text-gray-600">
-                  Pagamento via <strong>{paymentMethod}</strong> cadastrado. Em caso de dúvidas, entre em contato com o personal trainer.
+                
+                <div className="relative z-10 text-[10px] text-white/60 text-center mt-3 pt-3 border-t border-white/5 space-y-1">
+                  <p>Titular: <strong className="text-white/90">Benai Bernardo - Consultoria e Treinamento</strong></p>
                 </div>
-              )}
+              </div>
+            </div>
+
+            {/* Histórico de Pagamentos */}
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
+              <h3 className="font-bold text-[#071D49] text-sm flex items-center gap-2">
+                <DollarSign className="w-5 h-5 text-[#00AEEF]" /> Histórico de Pagamentos
+              </h3>
+              
+              <div className="space-y-3">
+                {/* Exemplo Mockado de Pagamento Anterior - no futuro pode vir do Firebase */}
+                <div className="flex items-center justify-between p-3 rounded-xl border border-gray-100 bg-gray-50">
+                  <div className="flex flex-col">
+                    <span className="text-sm font-bold text-gray-800">Agosto/2026 - Proporcional (6 aulas)</span>
+                    <span className="text-xs text-gray-500">Pago em 31/08/2026</span>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span className="text-sm font-bold text-gray-800">R$ 300,00</span>
+                    <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider bg-emerald-100 px-2 py-0.5 rounded">Pago</span>
+                  </div>
+                </div>
+                
+                <div className="flex items-center justify-between p-3 rounded-xl border border-blue-100 bg-blue-50/50">
+                  <div className="flex flex-col">
+                    <span className="text-sm font-bold text-gray-800">Setembro/2026 - Mensalidade</span>
+                    <span className="text-xs text-gray-500">Vencimento: 05/09/2026</span>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span className="text-sm font-bold text-gray-800">R$ 600,00</span>
+                    <span className="text-[10px] font-bold text-amber-600 uppercase tracking-wider bg-amber-100 px-2 py-0.5 rounded">Pendente</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Box Contrato Assinado */}
@@ -512,14 +541,14 @@ export const StudentPortal: React.FC<Props> = ({ student, onClose, isStandalone 
                 </div>
               </div>
               <button 
-                onClick={() => alert('Download do Contrato em PDF simulado com sucesso!')}
-                className="p-2.5 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors text-gray-600"
-                title="Baixar Contrato"
+                onClick={() => alert('Download do Contrato em PDF simulado com sucesso! Arquivo: contrato-personal-benai.pdf')}
+                className="p-2.5 bg-[#00AEEF]/10 hover:bg-[#00AEEF]/20 rounded-xl transition-colors text-[#00AEEF] flex items-center gap-2"
+                title="Baixar Contrato em PDF"
               >
+                <span className="text-xs font-bold hidden sm:block">Baixar PDF</span>
                 <Download className="w-4 h-4" />
               </button>
             </div>
-
           </div>
         )}
 

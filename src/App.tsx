@@ -422,12 +422,23 @@ function InstructorWorkout() {
           </button>
           
           <button 
+            onClick={() => {
+              // Já salva no localStorage via updateData, apenas dar feedback visual
+              alert('Ficha de treino salva com sucesso!');
+            }}
+            className="bg-blue-600 text-white hover:bg-blue-700 font-bold py-4 px-6 rounded-full shadow-xl flex items-center gap-2 transform transition-transform hover:scale-105 active:scale-95 border-2 border-white/20"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            <span className="hidden sm:inline">Salvar Alterações</span>
+          </button>
+
+          <button 
             onClick={handleFinishSession}
             disabled={isSaving}
             className={`font-black py-4 px-8 rounded-full shadow-2xl flex items-center gap-2 transform transition-all border-2 border-white/20 ${isSaving ? 'bg-gray-400 text-white cursor-not-allowed' : 'bg-green-500 hover:bg-green-600 text-white hover:scale-105 active:scale-95'}`}
           >
             <CheckCircle2 className="w-5 h-5" />
-            {isSaving ? 'Salvando...' : 'Finalizar'}
+            {isSaving ? 'Salvando...' : 'Finalizar Sessão'}
           </button>
         </div>
       </div>

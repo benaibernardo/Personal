@@ -6,7 +6,7 @@ import { fetchStudentsFromFirestore, saveStudentToFirestore, deleteStudentFromFi
 
 const INITIAL_STUDENTS: Student[] = [
   {
-    id: 'samia-01',
+    id: 'samiacristinayebahi',
     name: 'Samia Cristina Yebahi',
     email: 'samia.docs.ye@gmail.com',
     phone: '(41) 99632-6363',
@@ -83,14 +83,14 @@ export const StudentDashboard: React.FC<Props> = ({ onStartWorkout }) => {
     e.preventDefault();
     if (!newName.trim()) return;
 
-    // Generate Slug ID based on name
+    // Generate Slug ID based on name (nome-sobrenome or nomesobrenome sem espaços)
     let baseSlug = newName
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase()
       .trim()
-      .replace(/[^a-z0-9\s-]/g, "")
-      .replace(/\s+/g, "-");
+      .replace(/[^a-z0-9\s]/g, "")
+      .replace(/\s+/g, "");
       
     let slug = baseSlug;
     let counter = 1;
